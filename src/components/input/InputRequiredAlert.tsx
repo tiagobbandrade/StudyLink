@@ -1,9 +1,8 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { HTMLAttributes } from "react";
 
 export default function InputRequiredAlert({
-  children,
   ...props
-}: { children: ReactNode } & HTMLAttributes<HTMLSpanElement>) {
+}: HTMLAttributes<HTMLSpanElement>) {
   return (
     <span {...props} className="text-red-400 text-sm font-semibold">
       *
