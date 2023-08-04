@@ -1,5 +1,4 @@
 "use server";
-import "whatwg-fetch";
 import { auth } from "@/api/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
