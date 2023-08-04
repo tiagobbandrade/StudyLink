@@ -1,14 +1,21 @@
-import Input from "@/components/input/Input";
-import InputContainer from "@/components/input/InputContainer";
-import InputLabel from "@/components/input/InputLabel";
+import { InputRoot } from "@/components/input/Root";
 
 export default function Page() {
   return (
-    <form className="max-w-md w-full h-screen flex items-center justify-center mx-auto">
-      <InputContainer>
-        <InputLabel>Teste</InputLabel>
-        <Input />
-      </InputContainer>
+    <form
+      noValidate
+      className="max-w-md w-full h-screen flex items-center justify-center mx-auto"
+    >
+      <InputRoot.Container>
+        <InputRoot.Label>
+          E-mail <InputRoot.Required />
+        </InputRoot.Label>
+        <InputRoot.Input
+          placeholder="youremail@example.com"
+          type="email"
+          required
+        />
+      </InputRoot.Container>
     </form>
   );
 }
