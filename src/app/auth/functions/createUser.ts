@@ -7,7 +7,10 @@ export async function createUser(email: string, password: string) {
 
   await createUserWithEmailAndPassword(auth, email, password)
     .then((userCredentials) => (user = userCredentials.user.email))
-    .catch((errorOnCreation) => (error = errorOnCreation));
+    .catch(
+      (errorOnCreation) =>
+        (error = errorOnCreation.customData._tokenResponse.error.message)
+    );
 
   return { user, error };
 }
