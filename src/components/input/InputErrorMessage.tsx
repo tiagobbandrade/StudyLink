@@ -2,7 +2,7 @@ import { ComponentType, HTMLAttributes, ReactNode } from "react";
 
 interface InputErrorMessageInterface extends HTMLAttributes<HTMLSpanElement> {
   children: ReactNode;
-  icon?: ComponentType;
+  icon?: ComponentType<{ className?: string }>;
 }
 
 export default function InputErrorMessage({
@@ -15,7 +15,8 @@ export default function InputErrorMessage({
       {...props}
       className="text-xs text-red-500 font-medium flex items-center justify-start gap-1 mt-2"
     >
-      {Icon && <Icon />} {children}
+      {Icon && <Icon className="text-sm" />}
+      {children}
     </span>
   );
 }
