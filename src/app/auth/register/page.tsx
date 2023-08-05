@@ -1,12 +1,20 @@
 "use client";
 import { InputRoot } from "@/components/input/Root";
-import { FormEvent } from "react";
-import { GoArrowRight } from "react-icons/go";
+import { useRef, useState } from "react";
+import { GoAlert, GoArrowRight } from "react-icons/go";
+import { submitRegisterForm } from "../functions/submitRegisterForm";
+
+export interface ErrorInterface {
+  email?: string;
+  password?: {
+    firstPasswordField: string;
+    confirmPasswordField: string;
+  };
+}
 
 export default function Page() {
-  async function onSubmitRegisterForm(e: FormEvent) {
-    e.preventDefault();
-  }
+  const emailRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState<ErrorInterface>();
 
   return (
     <section className="h-screen max-w-sm mx-auto flex items-center justify-center flex-col gap-6">
@@ -24,13 +32,25 @@ export default function Page() {
       </div>
       <form
         className="w-full flex items-center justify-center flex-col gap-4"
-        onSubmit={onSubmitRegisterForm}
+        onSubmit={(e) =>
+          submitRegisterForm(e, emailRef, emailRef.current?.value, setError)
+        }
+        noValidate
       >
-        <InputRoot.Container>
+        <InputRoot.Container error={error?.email}>
           <InputRoot.Label>
             E-mail <InputRoot.Required />
           </InputRoot.Label>
-          <InputRoot.Input placeholder="youremail@example.com" type="email" />
+          <InputRoot.Input
+            inputRef={emailRef}
+            placeholder="youremail@example.com"
+            type="email"
+          />
+          {error?.email && (
+            <InputRoot.ErrorMessage icon={GoAlert}>
+              {error.email}
+            </InputRoot.ErrorMessage>
+          )}
         </InputRoot.Container>
         <InputRoot.Container>
           <InputRoot.Label>
