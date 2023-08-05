@@ -36,17 +36,17 @@ export default function Page() {
           <InputRoot.Label>
             Senha <InputRoot.Required />
           </InputRoot.Label>
-          <InputRoot.Input placeholder="********" type="password" />
+          <InputRoot.Input placeholder="Digite sua senha" type="password" />
         </InputRoot.Container>
         <InputRoot.Container>
           <InputRoot.Label>
             Confirmar Senha <InputRoot.Required />
           </InputRoot.Label>
-          <InputRoot.Input placeholder="********" type="password" />
+          <InputRoot.Input placeholder="Confirme sua senha" type="password" />
         </InputRoot.Container>
         <button
           type="submit"
-          className="flex items-center justify-center text-sm font-semibold gap-3 w-full bg-zinc-900 py-3 text-zinc-200 rounded-md mt-6"
+          className="flex items-center justify-center text-sm font-semibold gap-3 w-full bg-zinc-900 py-3 text-zinc-100 rounded-md mt-6"
         >
           Continuar <GoArrowRight />
         </button>
