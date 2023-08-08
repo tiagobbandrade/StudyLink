@@ -1,20 +1,38 @@
 "use client";
 import { InputRoot } from "@/components/input/Root";
-import { useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { GoAlert, GoArrowRight } from "react-icons/go";
-import { submitRegisterForm } from "../functions/submitRegisterForm";
-
+import {
+  RegisterUserInterface,
+  registerUser,
+} from "../functions/submitRegisterForm";
 export interface ErrorInterface {
   email?: string;
   password?: {
-    firstPasswordField: string;
+    defaultPasswordField: string;
     confirmPasswordField: string;
   };
 }
 
 export default function Page() {
   const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<ErrorInterface>();
+
+  function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    const registerUserParams: RegisterUserInterface = {
+      ref: {
+        email: emailRef,
+        password: passwordRef,
+        confirmPassword: confirmPasswordRef,
+      },
+      setState: setError,
+    };
+
+    registerUser(registerUserParams);
+  }
 
   return (
     <section className="h-screen max-w-sm mx-auto flex items-center justify-center flex-col gap-6">
@@ -32,9 +50,7 @@ export default function Page() {
       </div>
       <form
         className="w-full flex items-center justify-center flex-col gap-4"
-        onSubmit={(e) =>
-          submitRegisterForm(e, emailRef, emailRef.current?.value, setError)
-        }
+        onSubmit={onSubmit}
         noValidate
       >
         <InputRoot.Container error={error?.email}>
@@ -42,6 +58,11 @@ export default function Page() {
             E-mail <InputRoot.Required />
           </InputRoot.Label>
           <InputRoot.Input
+            onChange={() =>
+              error?.email
+                ? setError((oldValue) => ({ ...oldValue, email: "" }))
+                : ""
+            }
             inputRef={emailRef}
             placeholder="youremail@example.com"
             type="email"
@@ -52,17 +73,61 @@ export default function Page() {
             </InputRoot.ErrorMessage>
           )}
         </InputRoot.Container>
-        <InputRoot.Container>
+
+        <InputRoot.Container error={error?.password?.defaultPasswordField}>
           <InputRoot.Label>
             Senha <InputRoot.Required />
           </InputRoot.Label>
-          <InputRoot.Input placeholder="Digite sua senha" type="password" />
+          <InputRoot.Input
+            onChange={() =>
+              error?.password?.defaultPasswordField
+                ? setError((oldValue) => ({
+                    ...oldValue,
+                    password: {
+                      defaultPasswordField: "",
+                      confirmPasswordField:
+                        oldValue?.password?.confirmPasswordField || "",
+                    },
+                  }))
+                : ""
+            }
+            inputRef={passwordRef}
+            placeholder="Digite sua senha"
+            type="password"
+          />
+          {error?.password?.defaultPasswordField && (
+            <InputRoot.ErrorMessage icon={GoAlert}>
+              {error.password.defaultPasswordField}
+            </InputRoot.ErrorMessage>
+          )}
         </InputRoot.Container>
-        <InputRoot.Container>
+
+        <InputRoot.Container error={error?.password?.confirmPasswordField}>
           <InputRoot.Label>
             Confirmar Senha <InputRoot.Required />
           </InputRoot.Label>
-          <InputRoot.Input placeholder="Confirme sua senha" type="password" />
+          <InputRoot.Input
+            onChange={() =>
+              error?.password?.confirmPasswordField
+                ? setError((oldValue) => ({
+                    ...oldValue,
+                    password: {
+                      defaultPasswordField:
+                        oldValue?.password?.defaultPasswordField || "",
+                      confirmPasswordField: "",
+                    },
+                  }))
+                : ""
+            }
+            inputRef={confirmPasswordRef}
+            placeholder="Confirme sua senha"
+            type="password"
+          />
+          {error?.password?.confirmPasswordField && (
+            <InputRoot.ErrorMessage icon={GoAlert}>
+              {error.password.confirmPasswordField}
+            </InputRoot.ErrorMessage>
+          )}
         </InputRoot.Container>
         <button
           type="submit"
