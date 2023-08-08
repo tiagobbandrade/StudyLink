@@ -32,5 +32,6 @@ export function submitRegisterForm({
         ? ""
         : "As senhas não coincidem. Tente novamente.",
     });
+    return;
   }
 }
