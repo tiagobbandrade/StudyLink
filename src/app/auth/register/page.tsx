@@ -1,8 +1,7 @@
 "use client";
 import { InputRoot } from "@/components/input/Root";
-import { FormEvent, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { GoAlert, GoArrowRight } from "react-icons/go";
-import { RegisterUserInterface, registerUser } from "../functions/registerUser";
 export interface ErrorInterface {
   email?: string;
   password?: {
@@ -16,20 +15,6 @@ export default function Page() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<ErrorInterface>();
-
-  function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    const registerUserParams: RegisterUserInterface = {
-      ref: {
-        email: emailRef,
-        password: passwordRef,
-        confirmPassword: confirmPasswordRef,
-      },
-      setState: setError,
-    };
-
-    registerUser(registerUserParams);
-  }
 
   return (
     <section className="h-screen max-w-sm mx-auto flex items-center justify-center flex-col gap-6">
@@ -47,7 +32,6 @@ export default function Page() {
       </div>
       <form
         className="w-full flex items-center justify-center flex-col gap-4"
-        onSubmit={onSubmit}
         noValidate
       >
         <InputRoot.Container error={error?.email}>
