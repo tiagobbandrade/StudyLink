@@ -2,10 +2,7 @@
 import { InputRoot } from "@/components/input/Root";
 import { FormEvent, useRef, useState } from "react";
 import { GoAlert, GoArrowRight } from "react-icons/go";
-import {
-  RegisterUserInterface,
-  registerUser,
-} from "../functions/submitRegisterForm";
+import { RegisterUserInterface, registerUser } from "../functions/registerUser";
 export interface ErrorInterface {
   email?: string;
   password?: {
