@@ -87,7 +87,7 @@ export default function Page() {
 
         <button
           type="submit"
-          className="flex items-center justify-center text-sm font-semibold gap-3 w-full bg-zinc-900 py-3 text-zinc-100 rounded-md mt-6"
+          className="flex items-center justify-center text-sm font-semibold gap-3 w-full h-12 bg-zinc-900 py-3 text-zinc-100 rounded-md mt-6"
         >
           Continuar <GoArrowRight />
         </button>
