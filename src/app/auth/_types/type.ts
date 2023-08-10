@@ -17,7 +17,7 @@ export interface InputFieldInterface
 export type ClearErrorsProps = {
   error: ErrorType;
   fieldKey: keyof ErrorType;
-  setState: Dispatch<SetStateAction<ErrorType>>;
+  setError: Dispatch<SetStateAction<ErrorType>>;
 };
 
 export type ErrorType = {

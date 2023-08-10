@@ -1,8 +1,8 @@
 import { ClearErrorsProps } from "../_types/type";
 
-export function clearErrors({ error, fieldKey, setState }: ClearErrorsProps) {
+export function clearErrors({ error, fieldKey, setError }: ClearErrorsProps) {
   if (error && error[fieldKey]) {
-    setState((previousValue) => ({
+    setError((previousValue) => ({
       ...previousValue,
       [fieldKey]: "",
     }));

@@ -50,9 +50,7 @@ export default function Page() {
           errorMessage={error.email}
           type="email"
           placeholder="youremail@example.com"
-          clearError={() =>
-            clearErrors({ error, fieldKey: "email", setState: setError })
-          }
+          clearError={() => clearErrors({ error, fieldKey: "email", setError })}
         />
 
         <InputField
@@ -65,7 +63,7 @@ export default function Page() {
             clearErrors({
               error,
               fieldKey: "password",
-              setState: setError,
+              setError,
             })
           }
         />
@@ -80,7 +78,7 @@ export default function Page() {
             clearErrors({
               error,
               fieldKey: "confirmPassword",
-              setState: setError,
+              setError,
             })
           }
         />
