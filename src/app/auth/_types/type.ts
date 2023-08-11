@@ -30,6 +30,5 @@ export type CheckValidationsProps = {
   emailRef: RefObject<HTMLInputElement>;
   passwordRef: RefObject<HTMLInputElement>;
   confirmPasswordRef: RefObject<HTMLInputElement>;
-  event: FormEvent;
   setError: Dispatch<SetStateAction<ErrorType>>;
 };
