@@ -1,10 +1,10 @@
 "use client";
 import { InputRoot as Root } from "@/components/input/Root";
 import { ErrorType, InputFieldInterface } from "../_types/type";
-import { useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { GoAlert, GoArrowRight } from "react-icons/go";
-import { submitRegisterForm } from "../_functions/submitRegisterForm";
 import { clearErrors } from "../_functions/clearErrors";
+import { checkValidations } from "../_functions/checkValidations";
 
 export default function Page() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -16,6 +16,19 @@ export default function Page() {
     password: "",
     confirmPassword: "",
   });
+
+  async function onSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    const isValid = checkValidations({
+      emailRef,
+      passwordRef,
+      confirmPasswordRef,
+      setError,
+    });
+
+    if (!isValid) return;
+  }
 
   return (
     <section className="h-screen max-w-sm mx-auto flex items-center justify-center flex-col gap-6">
@@ -34,15 +47,7 @@ export default function Page() {
       <form
         className="w-full flex items-center justify-center flex-col gap-4"
         noValidate
-        onSubmit={(event) =>
-          submitRegisterForm({
-            event,
-            emailRef,
-            passwordRef,
-            confirmPasswordRef,
-            setError,
-          })
-        }
+        onSubmit={onSubmit}
       >
         <InputField
           label="E-mail"
