@@ -3,16 +3,13 @@ import { CheckValidationsProps } from "../_types/type";
 import { doPasswordsMatch } from "@/functions/validations/doPasswordsMatch";
 import { isValidEmail } from "@/functions/validations/isValidEmail";
 
-export function submitRegisterForm({
-  event,
+export function checkValidations({
   emailRef,
   passwordRef,
   confirmPasswordRef,
   setError,
-}: CheckValidationsProps) {
-  event.preventDefault();
-
-  if (!(emailRef || passwordRef || confirmPasswordRef)) return;
+}: CheckValidationsProps): boolean {
+  if (!(emailRef || passwordRef || confirmPasswordRef)) return false;
 
   const emailValue = emailRef.current?.value || "";
   const passwordValue = passwordRef.current?.value || "";
@@ -32,6 +29,8 @@ export function submitRegisterForm({
         ? ""
         : "As senhas não coincidem. Tente novamente.",
     });
-    return;
+    return false;
   }
+
+  return true;
 }
