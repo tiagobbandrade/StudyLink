@@ -5,6 +5,7 @@ import { FormEvent, useRef, useState } from "react";
 import { GoAlert, GoArrowRight } from "react-icons/go";
 import { clearErrors } from "../_functions/clearErrors";
 import { checkValidations } from "../_functions/checkValidations";
+import axios from "axios";
 
 export default function Page() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -28,6 +29,16 @@ export default function Page() {
     });
 
     if (!isValid) return;
+
+    const { data } = await axios.post("/api/auth/register", {
+      data: {
+        email: emailRef.current?.value,
+        password: passwordRef.current?.value,
+      },
+    });
+
+    if (data.type == "error") return console.log(data.message);
+    console.log(data.token);
   }
 
   return (
