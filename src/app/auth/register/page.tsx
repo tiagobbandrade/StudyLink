@@ -6,11 +6,13 @@ import { GoAlert, GoArrowRight } from "react-icons/go";
 import { clearErrors } from "../_functions/clearErrors";
 import { checkValidations } from "../_functions/checkValidations";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const [error, setError] = useState<ErrorType>({
     email: "",
@@ -38,7 +40,9 @@ export default function Page() {
     });
 
     if (data.type == "error") return console.log(data.message);
-    console.log(data.token);
+    if (data.status === 201) {
+      router.push("/auth/confirmemail");
+    }
   }
 
   return (
