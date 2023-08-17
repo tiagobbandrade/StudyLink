@@ -14,7 +14,7 @@ type BodyType = {
   };
 };
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const { data } = await req.json().then((data: BodyType) => data);
   const auth = getAuth();
 
@@ -38,7 +38,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
       maxAge: 300, //5 minutes
     });
 
-    return NextResponse.json({ token, status: 200 });
+    return NextResponse.json({
+      status: 201,
+      statusText: "created",
+      message: "User created",
+    });
   } catch (error) {
     const err = error as FirebaseError;
     return NextResponse.json({
